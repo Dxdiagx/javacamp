@@ -1,0 +1,114 @@
+package ýntegerset;
+
+  public class IntegerSet 
+  {
+      
+    public static final int DiziBoyutu = 99; // Dizi eleman sayýsý = [1, 99] (1,100)
+    
+    public static int i;
+      
+    public  boolean [] booleanArray = new boolean[DiziBoyutu];
+     
+     
+    public static IntegerSet union(IntegerSet set1, IntegerSet set2)
+    {
+        /*
+        Java’da tanýmladýðýmýz bir dizimizi baþka bir diziye kopyalamak isteyebiliriz. 
+        Bunun için 2 yöntem var. Bu yöntemlerden ilki for döngüsünde dizi elemanlarýný 
+        baþka bir diziye atarak kopyalama iþlemi yapmak.
+        */
+        
+         
+        IntegerSet union = new IntegerSet();
+         
+         /*
+            System.arraycopy(Kaynak dizi, Kaynak dizi’nin baþlangýç index’i, Hedef dizi, Hedef dizi’nin baþlangýç index’i,  Adedi);
+
+            Kaynak dizi: Kaynak dizinin adý yazýlýr.
+            Kaynak dizi’nin baþlangýç index’i: Kaynak dizi’nin kaçýncý indexten itibaren eleman kopyalanacaðý belirtilir.
+            Hedef dizi: Hangi diziye kopyalanacaksa o dizinin adý yazýlýr.
+            Hedef dizi’nin baþlangýç index’i: Kaynak dizi’nin, hedef dizi’nin kaçýncý index elemanýndan itibaren kopyalanacaðý belirtilir.
+            Adedi: Kopyalanacak olan elemanlarýn sayýsý belirtilir.
+         
+         */
+         
+        System.arraycopy( set1.booleanArray, 0, union.booleanArray, 0, DiziBoyutu);
+         
+        for ( int i = 0; i < DiziBoyutu; i++ )
+        {
+            if ( set1.booleanArray[i] || set2.booleanArray[i] )
+            {
+                union.booleanArray[i] = true;
+            }
+             
+            else 
+            { 
+                union.booleanArray[i] = false;     // yanlýþ ise false döndericek
+            }                                          
+        }
+        
+        return union;
+    }
+     
+    public static IntegerSet intersection(IntegerSet set1, IntegerSet set2)    // kesiþim
+    {
+        IntegerSet intersection = new IntegerSet();
+        
+        for (int i = 0; i < DiziBoyutu; i++)
+        {
+            intersection.booleanArray[i] = set1.booleanArray[i] && set2.booleanArray[i];
+        }
+        return intersection;
+    }
+     
+    public void insertElement(int x) 
+    { 
+        booleanArray[x] = true; 
+    }
+     
+    public void deleteElement(int y) 
+    { 
+        booleanArray[y] = false;
+    }
+     
+    
+    public boolean isEqualTo(IntegerSet set)   // eþitlik kontrolü "isEqualTo"
+    {
+        for (int i = 0; i < DiziBoyutu; i++)
+        {
+            if (booleanArray[i] != set.booleanArray[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+     
+    public static void main( String[] args )
+    {
+        IntegerSet integerSet1 = new IntegerSet();
+        System.out.println("intergerSet1 boþ: " + integerSet1 );
+         
+        IntegerSet integerSet2 = new IntegerSet();
+        System.out.println("Boþ Küme: " + union( integerSet1, integerSet2) );
+         
+        
+       
+        System.out.println("intergerSet1 sýfýr elemanýna sahiptir: " + integerSet1 );
+        
+        System.out.println("intergerSet1 != integerSet2: eþittir: " + integerSet1.isEqualTo( integerSet2 ) );
+        
+        System.out.println("intergerSet2 != integerSet1: eþittir: " + integerSet2.isEqualTo(integerSet1 ) );
+        
+        integerSet2.insertElement( 0 );
+        
+        System.out.println("intergerSet1 == integerSet2: eþittir: " + integerSet1.isEqualTo(integerSet2 ) );
+        
+        integerSet1.deleteElement( 0 );
+        
+        System.out.println("intergerSet1 boþ: " + integerSet1 );
+        
+        integerSet2.booleanArray[i]=true;
+    }
+ }
+ 
